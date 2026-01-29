@@ -40,8 +40,8 @@ def wordle():
         
         #Llamo a la funcion para solicitar y verificar la palabra
         word = solicitar_palabra()
-        '''En caso de que la letra este en la posicion correcta se pondra en mayuscula, en caso 
-        de que la letra este en la palabra se pondra entre comillas, sino, la letra quedara igual'''
+        '''En caso de que la letra este en la posicion correcta se pondra en verde, en caso 
+        de que la letra se encuentre en la palabra se pondra en naranja, sino, la letra quedara igual'''
         word_as_list = list(word)
         
         #"\033[<style>;<fg>;<bg>mTu texto\033[0m"
