@@ -1,2 +1,2 @@
 # Wordle
-# Este juego fue vendido en 2022
+# Juego de Wordle en terminal
