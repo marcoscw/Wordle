@@ -8,58 +8,43 @@ def solicitar_palabra():
             return word.upper() #Dejar la palabra en mayuscula por default
             
 
-def wordle():
-    palabra_del_dia = 'CARPA'
-    #Creo un diccionario vacio que tendra las letras con la cantidad de apariciones
-    dict_palabra = {} 
-    #hacer un recuento de la cantidad de letras especificas en la palabra del dia
-    for letra in palabra_del_dia:
-        if letra in dict_palabra:
-            dict_palabra[letra] = dict_palabra.get(letra) + 1 #si ya existe se le suma 1 valor
-        else:
-            dict_palabra[letra] = 1 #si no existe aun la letra en el diccionario se le asigna 1
-    dict_palabra_temp = dict_palabra
-    print(dict_palabra)
-
 #DEFINICION DEL CODIGO DEL JUEGO
 def wordle():
     palabra_del_dia = 'CARPA'
     dict_palabra = {}
-    #hacer un recuento de la cantidad de let{letter}ras especificas en la palabra del dia y las guarda en un dicc
+    #hacer un recuento de la cantidad de letras especificas en la palabra del dia y las guarda en un dicc
     for letra in palabra_del_dia:
         if letra in dict_palabra:
             dict_palabra[letra] = dict_palabra.get(letra) + 1 #si ya existe se le suma 1 valor
         else:
-            dict_palabra[letra] = 1 #si no existe aun la letra en el diccionario se le asigna 1
+            dict_palabra[letra] = 1 #si no existe aun la letra en el diccionario se le asigna el valor de 1
     
     #Empiezan los 5 intentos posibles
     for intento in range(5) : #5 intentos
-        
         #reseteo el diccionario de la palabra secreta por cada intento
         dict_palabra_temp = dict_palabra.copy()   
         
         #Llamo a la funcion para solicitar y verificar la palabra
         word = solicitar_palabra()
+        #Logica General del Juego
         '''En caso de que la letra este en la posicion correcta se pondra en verde, en caso 
         de que la letra se encuentre en la palabra se pondra en naranja, sino, la letra quedara igual'''
-        word_as_list = list(word)
-        
         #"\033[<style>;<fg>;<bg>mTu texto\033[0m"
+        #Primero se controla que la palabra sea la correcta directamente;
         if(word == palabra_del_dia):
             for letter in word:
                 print(f"\033[0;32;40m\033[m",end = ' ')
             print("Tu palabra es correcta!!")
             return
         else:
-            #La primera vez recorre y resta de mi diccionario la cantidad de la letra "letter"
-            #si es que coincide su posicion
+            #La primera vez recorre y resta de mi diccionario la cantidad de la letra "letter" si es que coincide su posicion
             for index,letter in enumerate(word):
                 if(letter == palabra_del_dia[index]):
                     dict_palabra_temp[letter] = dict_palabra_temp[letter] - 1
 
-            #la segunda vez recorre y va imprimiendo en verde las letras coincidentes, y restando de a uno
-            #las apariciones de la letra que existe en la palabra pero no esta en el lugar correcto
-            #Las letras que no estan en su posicion correcta se imprimen en color naranja
+            #la segunda vez recorre y va imprimiendo en verde las letras coincidentes sin restar, 
+            #se imprimen en naranja si las letras existen en la palabra y se resta 1
+            #si no existen en la palabra no cambia de color
             for index,letter in enumerate(word_as_list):
                 if(letter == palabra_del_dia[index]):
                     #IMPRIME EN COLOR VERDE LA LETRA COINCIDENTE CON LA POSICION
